@@ -249,7 +249,8 @@ public class BendingCommand {
 
 		sendMessage(player, "Bending v"
 				+ Bending.plugin.getDescription().getVersion());
-		sendMessage(player, "Author: orion304");
+		sendMessage(player, "Made by orion304");
+        sendMessage(player, "Reborn by tylerhyperHD");
 	}
 
 	private void printVersionUsage(Player player) {

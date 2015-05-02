@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Bending made by orion304 and reborn by tylerhyperHD
+${licensePrefix}is free of known copyright restrictions unless given by orion304.
+<#if licenseLast??>
+${licenseLast}
+</#if>

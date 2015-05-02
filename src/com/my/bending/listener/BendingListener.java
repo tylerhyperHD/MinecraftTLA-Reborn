@@ -1,9 +1,11 @@
 package com.my.bending.listener;
 
+import com.my.bending.Bending;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UnknownFormatConversionException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -89,7 +91,6 @@ import com.my.bending.airbending.Speed;
 import com.my.bending.chiblocking.HighJump;
 import com.my.bending.chiblocking.Paralyze;
 import com.my.bending.chiblocking.RapidPunch;
-import com.my.bending.Bending;
 import com.my.bending.earthbending.Catapult;
 import com.my.bending.earthbending.Collapse;
 import com.my.bending.earthbending.CompactColumn;
@@ -973,15 +974,6 @@ public class BendingListener implements Listener {
 		}
 	}
 
-	// @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	// public void onBlockDamage(BlockDamageEvent event) {
-	// Block block = event.getBlock();
-	// if (Illumination.blocks.containsKey(block)) {
-	// Illumination.revert(block);
-	// event.setCancelled(true);
-	// }
-	// }
-
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
@@ -1199,11 +1191,6 @@ public class BendingListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
-		Player p = event.getPlayer();
-	}
-
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		if (EarthArmor.instances.containsKey(event.getEntity())) {
 			List<ItemStack> drops = event.getDrops();
@@ -1228,22 +1215,3 @@ public class BendingListener implements Listener {
 		}
 	}
 }
-// @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-// public void onPlayerInteract(PlayerInteractEntityEvent event){
-// Entity rightclicked = event.getRightClicked();
-// Player player = event.getPlayer();
-// if (!Tools.isBender(player, BendingType.Air))
-// return;
-// if (!(player.getItemInHand().getType() == Material.AIR))
-// return;
-// EntityType type = event.getRightClicked().getType();
-// if (type == EntityType.COW || type == EntityType.CHICKEN || type ==
-// EntityType.SHEEP
-// || type == EntityType.PIG){
-// rightclicked.setPassenger(player);
-// }
-// if (rightclicked.getPassenger() == player){
-// rightclicked.setPassenger(null);
-// }
-//
-// }

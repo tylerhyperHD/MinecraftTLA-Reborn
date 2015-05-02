@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,9 +34,7 @@ public class Bending extends JavaPlugin {
 	private final BendingPlayersSaver saver = new BendingPlayersSaver();
 	public final TagAPIListener Taglistener = new TagAPIListener();
 	public static Consumer logblock = null;
-
 	static Map<String, String> commands = new HashMap<String, String>();
-
 	public static ConfigManager configManager = new ConfigManager();
 	public static Language language = new Language();
 	public BendingPlayers config;
@@ -52,16 +49,18 @@ public class Bending extends JavaPlugin {
 	static int air = 0, earth = 0, water = 0, fire = 0, chi = 0;
 
 	public void onDisable() {
+        getLogger().info("Bending Reborn disabled.");
 		Tools.stopAllBending();
 		BendingPlayersSaver.save();
 		getServer().getScheduler().cancelTasks(plugin);
-        getLogger().info("Bending Reborn disabled.");
 	}
 
 	public void onEnable() {
-        getLogger().info("Enabling Bending Reborn by tylerhyperHD");
+
 		plugin = this;
-		ConfigurationSerialization.registerClass(BendingPlayer.class, "BendingPlayer");
+        getLogger().info("Enabling Bending Reborn by tylerhyperHD");
+		ConfigurationSerialization.registerClass(BendingPlayer.class,
+				"BendingPlayer");
 
 		configManager.load(new File(getDataFolder(), "config.yml"));
 		language.load(new File(getDataFolder(), "language.yml"));
@@ -84,14 +83,18 @@ public class Bending extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(listener, this);
 
-		if (Bukkit.getPluginManager().getPlugin("TagAPI") != null && ConfigManager.useTagAPI) {
+		if (Bukkit.getPluginManager().getPlugin("TagAPI") != null
+				&& ConfigManager.useTagAPI) {
 			getServer().getPluginManager().registerEvents(Taglistener, this);
 		}
 
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, manager, 0, 1);
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, manager, 0,
+				1);
 
-		getServer().getScheduler().runTaskTimerAsynchronously(plugin, revertChecker, 0, 200);
-		getServer().getScheduler().runTaskTimerAsynchronously(plugin, saver, 0, 20 * 60 * 5);
+		getServer().getScheduler().runTaskTimerAsynchronously(plugin,
+				revertChecker, 0, 200);
+		getServer().getScheduler().runTaskTimerAsynchronously(plugin, saver, 0,
+				20 * 60 * 5);
 
 		Tools.printHooks();
 		Tools.verbose("Bending Reborn v" + this.getDescription().getVersion() + " has been loaded.");
@@ -129,6 +132,7 @@ public class Bending extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("bending")) {
 			new BendingCommand(player, args, getDataFolder(), getServer());
 		}
+
 		return true;
 	}
 }

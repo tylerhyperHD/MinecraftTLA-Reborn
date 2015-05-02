@@ -14,11 +14,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.my.bending.Bending;
 import com.my.bending.BendingPlayers;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import net.sacredlabyrinth.Phaed.PreciousStones.FieldFlag;
+import net.sacredlabyrinth.Phaed.PreciousStones.PreciousStones;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -94,6 +96,8 @@ import com.my.bending.firebending.Fireball;
 import com.my.bending.firebending.Illumination;
 import com.my.bending.firebending.Lightning;
 import com.my.bending.firebending.WallOfFire;
+import jdk.nashorn.internal.ir.Node;
+import org.bukkit.Location;
 
 public class Tools {
 
@@ -142,7 +146,8 @@ public class Tools {
 	private static boolean respectFactions = true;
 	private static boolean respectTowny = true;
 	private static boolean respectGriefPrevention = true;
-	private static boolean logblockhook = true;
+
+	// private static boolean logblockhook = true;
 
 	public Tools(BendingPlayers config2) {
 		config = config2;
@@ -1213,20 +1218,9 @@ public class Tools {
 				verbose("But Bending is set to ignore Towny.");
 			}
 		}
-
-		Plugin lgbk = Bukkit.getPluginManager().getPlugin("LogBlock");
-            if (lgbk != null) {
-                verbose("Recognized LogBlock...");
-            if (logblockhook) {
-                verbose("Bending is set to log to LogBlock.");
-            } else {
-                verbose("But Bending isn't set to hook into LogBlock.");
-		  }
-		}
 	}
 
-	public static boolean isRegionProtectedFromBuild(Player player,
-			Abilities ability, Location loc) {
+	public static boolean isRegionProtectedFromBuild(Player player, Abilities ability, Location loc) {
 
 		List<Abilities> ignite = new ArrayList<Abilities>();
 		ignite.add(Abilities.Blaze);
@@ -1238,15 +1232,6 @@ public class Tools {
 			return false;
 		if (isHarmlessAbility(ability) && allowharmless)
 			return false;
-
-		// if (ignite.contains(ability)) {
-		// BlockIgniteEvent event = new BlockIgniteEvent(location.getBlock(),
-		// IgniteCause.FLINT_AND_STEEL, player);
-		// Bending.plugin.getServer().getPluginManager().callEvent(event);
-		// if (event.isCancelled())
-		// return false;
-		// event.setCancelled(true);
-		// }
 
 		PluginManager pm = Bukkit.getPluginManager();
 
@@ -1297,6 +1282,25 @@ public class Tools {
 				}
 			}
 
+			if (psp != null && respectPreciousStones) {
+				PreciousStones ps = (PreciousStones) psp;
+
+				if (ignite.contains(ability)) {
+					if (ps.getForceFieldManager().hasSourceField(location,
+							FieldFlag.PREVENT_FIRE))
+						return true;
+				}
+
+				if (explode.contains(ability)) {
+					if (ps.getForceFieldManager().hasSourceField(location,
+							FieldFlag.PREVENT_EXPLOSIONS))
+						return true;
+				}
+
+				if (ps.getForceFieldManager().hasSourceField(location,
+						FieldFlag.PREVENT_PLACE))
+					return true;
+			}
 
 			if (twnp != null && respectTowny) {
 				Towny twn = (Towny) twnp;
@@ -1355,6 +1359,21 @@ public class Tools {
 
 			}
 
+			if (gpp != null && respectGriefPrevention) {
+				String reason = GriefPrevention.instance.allowBuild(player,
+						location);
+
+				if (ignite.contains(ability)) {
+
+				}
+
+				if (explode.contains(ability)) {
+
+				}
+
+				if (reason != null)
+					return true;
+			}
 		}
 
 		return false;

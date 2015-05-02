@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.my.bending.Bending;
 import com.my.bending.BendingPlayers;
+import static com.my.bending.tools.Tools.config;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -22,7 +23,6 @@ public class BendingPlayer implements CustomSerializable {
 
 	private static Map<Abilities, Long> abilityCooldowns = new HashMap<Abilities, Long>();
 	private static long globalCooldown = 250;
-	private static BendingPlayers config = Tools.config;
 
 	private String playername;
 	private String language;
@@ -87,10 +87,6 @@ public class BendingPlayer implements CustomSerializable {
 	public static BendingPlayer getBendingPlayer(String playername) {
 		if (players.containsKey(playername)) {
 			return players.get(playername);
-		}
-
-		if (config == null) {
-			config = Tools.config;
 		}
 
 		BendingPlayer player = config.getBendingPlayer(playername);
