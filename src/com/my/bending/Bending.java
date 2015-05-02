@@ -1,5 +1,7 @@
 package com.my.bending;
 
+import com.my.bending.listener.BendingListener;
+import com.my.bending.listener.TagAPIListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +24,7 @@ import de.diddiz.LogBlock.LogBlock;
 
 public class Bending extends JavaPlugin {
 
-	public static long time_step = 1; // in ms
-	// public static Logger log = Logger.getLogger("Minecraft");
+	public static long time_step = 1;
 	public static Logger log = Logger.getLogger("Bending");
 
 	public static Bending plugin;
@@ -31,18 +32,12 @@ public class Bending extends JavaPlugin {
 	public final BendingManager manager = new BendingManager(this);
 	public final BendingListener listener = new BendingListener(this);
 	private final RevertChecker revertChecker = new RevertChecker(this);
-	// private final PlayerStorageWriter playerStorageWriter = new
-	// PlayerStorageWriter();
 	private final BendingPlayersSaver saver = new BendingPlayersSaver();
 	public final TagAPIListener Taglistener = new TagAPIListener();
 	public static Consumer logblock = null;
 
 	static Map<String, String> commands = new HashMap<String, String>();
-	// public static ConcurrentHashMap<String, List<BendingType>> benders = new
-	// ConcurrentHashMap<String, List<BendingType>>();
 
-	// public BendingPlayers config = new BendingPlayers(getDataFolder(),
-	// getResource("bendingPlayers.yml"));
 	public static ConfigManager configManager = new ConfigManager();
 	public static Language language = new Language();
 	public BendingPlayers config;
@@ -57,21 +52,15 @@ public class Bending extends JavaPlugin {
 	static int air = 0, earth = 0, water = 0, fire = 0, chi = 0;
 
 	public void onDisable() {
-
 		Tools.stopAllBending();
 		BendingPlayersSaver.save();
-
-        getLogger().info("Bending Reborn disabled.");
 		getServer().getScheduler().cancelTasks(plugin);
-
+        getLogger().info("Bending Reborn disabled.");
 	}
 
 	public void onEnable() {
-
+        getLogger().info("Enabling Bending Reborn by tylerhyperHD");
 		plugin = this;
-
-        getLogger().info("Bending Reborn for 1.8.3 by tylerhyperHD");
-        getLogger().info("Note that some things may not work.");
 		ConfigurationSerialization.registerClass(BendingPlayer.class, "BendingPlayer");
 
 		configManager.load(new File(getDataFolder(), "config.yml"));
@@ -95,23 +84,19 @@ public class Bending extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(listener, this);
 
-		if (Bukkit.getPluginManager().getPlugin("TagAPI") != null
-				&& ConfigManager.useTagAPI) {
+		if (Bukkit.getPluginManager().getPlugin("TagAPI") != null && ConfigManager.useTagAPI) {
 			getServer().getPluginManager().registerEvents(Taglistener, this);
 		}
 
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, manager, 0,
-				1);
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, manager, 0, 1);
 
-		getServer().getScheduler().runTaskTimerAsynchronously(plugin,
-				revertChecker, 0, 200);
-		getServer().getScheduler().runTaskTimerAsynchronously(plugin, saver, 0,
-				20 * 60 * 5);
+		getServer().getScheduler().runTaskTimerAsynchronously(plugin, revertChecker, 0, 200);
+		getServer().getScheduler().runTaskTimerAsynchronously(plugin, saver, 0, 20 * 60 * 5);
 
 		Tools.printHooks();
-		Tools.verbose("Bending RB v" + this.getDescription().getVersion()
-				+ " has been loaded.");
+		Tools.verbose("Bending Reborn v" + this.getDescription().getVersion() + " has been loaded.");
 		registerCommands();
+
 	}
 
 	public void reloadConfiguration() {
@@ -142,11 +127,8 @@ public class Bending extends JavaPlugin {
 			player = (Player) sender;
 		}
 		if (cmd.getName().equalsIgnoreCase("bending")) {
-
 			new BendingCommand(player, args, getDataFolder(), getServer());
-
 		}
-
 		return true;
 	}
 }

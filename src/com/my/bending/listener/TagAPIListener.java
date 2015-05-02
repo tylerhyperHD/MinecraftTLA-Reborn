@@ -1,4 +1,4 @@
-package com.my.bending;
+package com.my.bending.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,6 +40,5 @@ public class TagAPIListener implements Listener {
 				event.setTag(Tools.getColor(ConfigManager.getColor("Water"))
 						+ event.getNamedPlayer().getName());
 			}
-		// Tools.verbose("'" + event.getTag() + "'");
 	}
 }

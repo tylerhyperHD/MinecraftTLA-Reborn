@@ -11,7 +11,6 @@ import com.my.bending.waterbending.WaterSpout;
 import com.my.bending.airbending.AirScooter;
 import com.my.bending.airbending.AirSpout;
 import com.my.bending.airbending.Speed;
-import com.my.bending.airbending.Tornado;
 import com.my.bending.earthbending.Catapult;
 import com.my.bending.firebending.FireJet;
 
@@ -78,7 +77,6 @@ public class Flight {
 		ArrayList<Player> waterspoutplayers = new ArrayList<Player>();
 		ArrayList<Player> airspoutplayers = new ArrayList<Player>();
 
-		players.addAll(Tornado.getPlayers());
 		players.addAll(Speed.getPlayers());
 		players.addAll(FireJet.getPlayers());
 		players.addAll(Catapult.getPlayers());

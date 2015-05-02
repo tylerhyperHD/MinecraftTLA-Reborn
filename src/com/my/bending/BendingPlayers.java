@@ -13,6 +13,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.my.bending.tools.BendingPlayer;
+import com.my.bending.tools.BendingType;
+import org.bukkit.entity.Player;
 
 public class BendingPlayers {
 
@@ -152,5 +154,10 @@ public class BendingPlayers {
 		bendingPlayers = null;
 		bendingPlayersFile = null;
 	}
+
+    public boolean isBender(Player player, BendingType type)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

@@ -56,7 +56,6 @@ import com.my.bending.airbending.AirSpout;
 import com.my.bending.airbending.AirSuction;
 import com.my.bending.airbending.AirSwipe;
 import com.my.bending.airbending.Speed;
-import com.my.bending.airbending.Tornado;
 import com.my.bending.chiblocking.Paralyze;
 import com.my.bending.chiblocking.RapidPunch;
 
@@ -143,8 +142,7 @@ public class Tools {
 	private static boolean respectFactions = true;
 	private static boolean respectTowny = true;
 	private static boolean respectGriefPrevention = true;
-
-	// private static boolean logblockhook = true;
+	private static boolean logblockhook = true;
 
 	public Tools(BendingPlayers config2) {
 		config = config2;
@@ -1053,7 +1051,6 @@ public class Tools {
 		AirSpout.removeAll();
 		AirSwipe.instances.clear();
 		Speed.instances.clear();
-		Tornado.instances.clear();
 		AirBurst.removeAll();
 
 		Catapult.removeAll();
@@ -1217,15 +1214,15 @@ public class Tools {
 			}
 		}
 
-		// Plugin lgbk = Bukkit.getPluginManager().getPlugin("LogBlock");
-		// if (lgbk != null) {
-		// verbose("Recognized LogBlock...");
-		// if (logblockhook) {
-		// verbose("Bending is set to log to LogBlock.");
-		// } else {
-		// verbose("But Bending isn't set to hook into LogBlock.");
-		// }
-		// }
+		Plugin lgbk = Bukkit.getPluginManager().getPlugin("LogBlock");
+            if (lgbk != null) {
+                verbose("Recognized LogBlock...");
+            if (logblockhook) {
+                verbose("Bending is set to log to LogBlock.");
+            } else {
+                verbose("But Bending isn't set to hook into LogBlock.");
+		  }
+		}
 	}
 
 	public static boolean isRegionProtectedFromBuild(Player player,
@@ -1362,151 +1359,6 @@ public class Tools {
 
 		return false;
 	}
-
-	// public static boolean isRegionProtected(Player player, Abilities ability,
-	// boolean look) {
-	//
-	// Plugin wgp = Bukkit.getPluginManager().getPlugin("WorldGuard");
-	// Plugin psp = Bukkit.getPluginManager().getPlugin("PreciousStone");
-	// Plugin fcp = Bukkit.getPluginManager().getPlugin("Factions");
-	// Plugin twnp = Bukkit.getPluginManager().getPlugin("Towny");
-	//
-	// if (wgp != null && respectWorldGuard) {
-	// WorldGuardPlugin wg = (WorldGuardPlugin) Bukkit.getPluginManager()
-	// .getPlugin("WorldGuard");
-	// if (!player.isOnline())
-	// return true;
-	// if (look) {
-	// int range = 20;
-	// Block c = player.getTargetBlock(null, range);
-	// if ((!(wg.getGlobalRegionManager().canBuild(player,
-	// c.getLocation())) || !(wg.getGlobalRegionManager()
-	// .canConstruct(player, c.getLocation())))) {
-	// return true;
-	// }
-	// } else if (!(wg.getGlobalRegionManager().canBuild(player,
-	// player.getLocation()))
-	// || !(wg.getGlobalRegionManager().canConstruct(player,
-	// player.getLocation()))) {
-	// return true;
-	// }
-	// }
-	//
-	// if (psp != null && respectPreciousStones) {
-	// PreciousStones ps = (PreciousStones) psp;
-	// Block b = player.getLocation().getBlock();
-	//
-	// if (look) {
-	//
-	// int range = 20;
-	// Block c = player.getTargetBlock(null, range);
-	// if (ps.getForceFieldManager().hasSourceField(c.getLocation(),
-	// FieldFlag.PREVENT_PLACE))
-	// return true;
-	//
-	// } else {
-	// if (ps.getForceFieldManager().hasSourceField(
-	// player.getLocation(), FieldFlag.PREVENT_PLACE))
-	// return true;
-	// }
-	//
-	// if (ps.getForceFieldManager().hasSourceField(b.getLocation(),
-	// FieldFlag.PREVENT_PLACE))
-	// return true;
-	// }
-	//
-	// if (fcp != null && respectFactions) {
-	// if (isLocalAbility(ability)
-	// && !FactionsBlockListener.playerCanBuildDestroyBlock(
-	// player, player.getLocation(), "build", false)) {
-	// return true;
-	// } else if (!isLocalAbility(ability)
-	// && !FactionsBlockListener.playerCanBuildDestroyBlock(
-	// player, getTargetedLocation(player, 20), "build",
-	// false)) {
-	// return true;
-	// }
-	// }
-	//
-	// if (twnp != null && respectTowny) {
-	// Towny twn = (Towny) twnp;
-	// Block block;
-	// if (isLocalAbility(ability)) {
-	// block = player.getLocation().getBlock();
-	// } else {
-	// block = player.getTargetBlock(null, 20);
-	// }
-	//
-	// WorldCoord worldCoord;
-	//
-	// try {
-	// TownyWorld world = TownyUniverse.getDataSource().getWorld(
-	// block.getWorld().getName());
-	// worldCoord = new WorldCoord(world.getName(),
-	// Coord.parseCoord(block));
-	//
-	// // Get build permissions (updates if none exist)
-	// boolean bBuild = PlayerCacheUtil.getCachePermission(player,
-	// block.getLocation(), 3, (byte) 0,
-	// TownyPermission.ActionType.BUILD);
-	//
-	// // Allow build if we are permitted
-	// if (!bBuild) {
-	//
-	// /*
-	// * Fetch the players cache
-	// */
-	// PlayerCache cache = twn.getCache(player);
-	// TownBlockStatus status = cache.getStatus();
-	//
-	// /*
-	// * Flag war
-	// */
-	// if (((status == TownBlockStatus.ENEMY) && TownyWarConfig
-	// .isAllowingAttacks())) {
-	//
-	// try {
-	// TownyWar.callAttackCellEvent(twn, player, block,
-	// worldCoord);
-	// } catch (Exception e) {
-	// TownyMessaging.sendErrorMsg(player, e.getMessage());
-	// }
-	//
-	// return true;
-	//
-	// } else if (status == TownBlockStatus.WARZONE) {
-	// } else {
-	// return true;
-	// }
-	//
-	// /*
-	// * display any error recorded for this plot
-	// */
-	// if ((cache.hasBlockErrMsg()))
-	// TownyMessaging.sendErrorMsg(player,
-	// cache.getBlockErrMsg());
-	// }
-	//
-	// } catch (Exception e1) {
-	// TownyMessaging.sendErrorMsg(player,
-	// TownySettings.getLangString("msg_err_not_configured"));
-	// }
-	//
-	// }
-	//
-	// // EntityDamageByEntityEvent damageEvent = new
-	// // EntityDamageByEntityEvent(player, player,
-	// // EntityDamageEvent.DamageCause.ENTITY_ATTACK, 1);
-	// // Bukkit.getServer().getPluginManager().callEvent(damageEvent);
-	//
-	// // if (damageEvent.isCancelled())
-	// // {
-	// // return true;
-	// // }
-	// // }
-	//
-	// return false;
-	// }
 
 	public static boolean canBendPassive(Player player, BendingType type) {
 		if ((isChiBlocked(player) || Bloodbending.isBloodbended(player))

@@ -30,7 +30,6 @@ import com.my.bending.airbending.AirShield;
 import com.my.bending.airbending.AirSpout;
 import com.my.bending.airbending.AirSuction;
 import com.my.bending.airbending.AirSwipe;
-import com.my.bending.airbending.Tornado;
 import com.my.bending.chiblocking.HighJump;
 import com.my.bending.chiblocking.Paralyze;
 import com.my.bending.chiblocking.RapidPunch;
@@ -104,7 +103,6 @@ public class Language {
 		defaultdescriptions.put("AirSpout", AirSpout.getDescription());
 		defaultdescriptions.put("AirSuction", AirSuction.getDescription());
 		defaultdescriptions.put("AirSwipe", AirSwipe.getDescription());
-		defaultdescriptions.put("Tornado", Tornado.getDescription());
 		defaultdescriptions.put("HighJump", HighJump.getDescription());
 		defaultdescriptions.put("Paralyze", Paralyze.getDescription());
 		defaultdescriptions.put("RapidPunch", RapidPunch.getDescription());

@@ -45,7 +45,6 @@ import com.my.bending.airbending.AirSpout;
 import com.my.bending.airbending.AirSuction;
 import com.my.bending.airbending.AirSwipe;
 import com.my.bending.airbending.Speed;
-import com.my.bending.airbending.Tornado;
 import com.my.bending.chiblocking.RapidPunch;
 import com.my.bending.earthbending.Catapult;
 import com.my.bending.earthbending.CompactColumn;
@@ -152,10 +151,6 @@ public class BendingManager implements Runnable {
 
 		for (int ID : Speed.instances.keySet()) {
 			Speed.progress(ID);
-		}
-
-		for (int ID : Tornado.instances.keySet()) {
-			Tornado.progress(ID);
 		}
 
 		AirBurst.progressAll();
@@ -483,9 +478,6 @@ public class BendingManager implements Runnable {
 		int airswipeplayers = 0;
 		airswipes = AirSwipe.instances.size();
 
-		int tornadoplayers = 0;
-		tornados = Tornado.instances.size();
-
 		int catapults, compactcolumns, earthblasts, earthcolumns, earthtunnels, tremorsenses; // ,shockwaves;
 
 		int catapultplayers = 0;
@@ -570,9 +562,6 @@ public class BendingManager implements Runnable {
 				airsuctionplayers++;
 			if (ability == Abilities.AirSwipe)
 				airswipeplayers++;
-			if (ability == Abilities.Tornado)
-				tornadoplayers++;
-
 			if (ability == Abilities.Catapult)
 				catapultplayers++;
 			if (ability == Abilities.Collapse)
@@ -636,7 +625,6 @@ public class BendingManager implements Runnable {
 		// verbose("airspouts", airspouts, airspoutplayers, false);
 		verbose("airsuctions", airsuctions, airsuctionplayers, false);
 		verbose("airswipes", airswipes, airswipeplayers, false);
-		verbose("tornados", tornados, tornadoplayers, true);
 
 		verbose("catapults", catapults, catapultplayers, true);
 		verbose("compactcolumns", compactcolumns, compactcolumnplayers, false);

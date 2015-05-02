@@ -1,10 +1,9 @@
-package com.my.bending;
+package com.my.bending.listener;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UnknownFormatConversionException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -87,10 +86,10 @@ import com.my.bending.airbending.AirSpout;
 import com.my.bending.airbending.AirSuction;
 import com.my.bending.airbending.AirSwipe;
 import com.my.bending.airbending.Speed;
-import com.my.bending.airbending.Tornado;
 import com.my.bending.chiblocking.HighJump;
 import com.my.bending.chiblocking.Paralyze;
 import com.my.bending.chiblocking.RapidPunch;
+import com.my.bending.Bending;
 import com.my.bending.earthbending.Catapult;
 import com.my.bending.earthbending.Collapse;
 import com.my.bending.earthbending.CompactColumn;
@@ -535,10 +534,6 @@ public class BendingListener implements Listener {
 				if (ability == Abilities.AirSwipe) {
 					AirSwipe.charge(player);
 				}
-			}
-
-			if (ability == Abilities.Tornado) {
-				new Tornado(player);
 			}
 
 			if (ability == Abilities.EarthBlast) {
@@ -1206,12 +1201,6 @@ public class BendingListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
 		Player p = event.getPlayer();
-		if (Tornado.getPlayers().contains(p) || Bloodbending.isBloodbended(p)
-				|| Speed.getPlayers().contains(p)
-				|| FireJet.getPlayers().contains(p)
-				|| AvatarState.getPlayers().contains(p)) {
-			event.setCancelled(p.getGameMode() != GameMode.CREATIVE);
-		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -1258,4 +1247,3 @@ public class BendingListener implements Listener {
 // }
 //
 // }
-

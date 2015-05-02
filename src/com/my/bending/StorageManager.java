@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 public class StorageManager {
 
 	private File dataFolder;
-	public BendingPlayers config;
+	public static Boolean useMySQL;
 	public static Boolean useFlatFile;
 
 	private Plugin tapi;
